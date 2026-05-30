@@ -21,7 +21,6 @@ public class NaukriUpdate {
 
         System.out.println("════════════════════════════════════");
         System.out.println("🚀 Naukri Automation Started");
-        System.out.println("════════════════════════════════════");
         
         try {
 
@@ -56,9 +55,7 @@ public class NaukriUpdate {
 
         System.out.println("✅ Login Successful");
         
-        System.out.println("════════════════════════════════════");
-        System.out.println("🚀 Naukri Automation Ended");
-        System.out.println("════════════════════════════════════");
+        
     }
 
     public static void updateProfile() throws Exception {
@@ -98,7 +95,7 @@ public class NaukriUpdate {
         
         closeIcon.click();
         
-        System.out.println("❎ Success Popup Closed");
+        System.out.println("✅ Success Popup Closed");
         
     }
 
@@ -132,9 +129,12 @@ public class NaukriUpdate {
                     .click();
 
             System.out.println("✅ Logout Successful");
+            System.out.println("🚀 Naukri Automation Ended");
+            System.out.println("════════════════════════════════════");
 
         } catch (Exception e) {
-            System.out.println("Logout Failed");
+            System.out.println("❎ Logout Failed");
+            
         }
     }
 }
