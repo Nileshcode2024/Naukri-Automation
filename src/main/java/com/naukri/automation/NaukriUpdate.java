@@ -19,6 +19,10 @@ public class NaukriUpdate {
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
+        System.out.println("════════════════════════════════════");
+        System.out.println("🚀 Naukri Automation Started");
+        System.out.println("════════════════════════════════════");
+        
         try {
 
             login();
@@ -50,7 +54,11 @@ public class NaukriUpdate {
                 By.xpath("//*[@type='submit' and normalize-space()='Login']"))
                 .click();
 
-        System.out.println("Login Successful");
+        System.out.println("✅ Login Successful");
+        
+        System.out.println("════════════════════════════════════");
+        System.out.println("🚀 Naukri Automation Ended");
+        System.out.println("════════════════════════════════════");
     }
 
     public static void updateProfile() throws Exception {
@@ -67,18 +75,31 @@ public class NaukriUpdate {
                 By.xpath("(//*[contains(@class,'icon edit')])[1]"))
                 .click();
 
-        WebElement mobile =
-                wait.until(ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//*[@name='mobile']")));
+        System.out.println("📝 Updating Profile Details...");
+//        WebElement mobile = 
+//                wait.until(ExpectedConditions.visibilityOfElementLocated(
+//                        By.xpath("//*[@name='mobile']")));
+//
+//        mobile.clear();
+//        mobile.sendKeys(Config.MOBILE);
+// 
+        WebElement saveBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.id("saveBasicDetailsBtn")));
 
-        mobile.clear();
-        mobile.sendKeys(Config.MOBILE);
-
-        driver.findElement(
-                By.xpath("//button[@type='submit']"))
-                .click();
-
-        System.out.println("Profile Updated");
+        saveBtn.click();
+ 
+        // Wait for success popup/cross icon
+        WebElement closeIcon = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("/html/body/div[6]/div[2]/div[1]/span")));
+        
+        System.out.println("✅ Profile Updated Successfully");
+        
+        closeIcon.click();
+        
+        System.out.println("❎ Success Popup Closed");
+        
     }
 
     public static void uploadResume() throws Exception {
@@ -86,6 +107,8 @@ public class NaukriUpdate {
         driver.get(Config.PROFILE_URL);
 
         Thread.sleep(3000);
+        
+        System.out.println("📄 Resume Upload Started...");
 
         WebElement upload =
                 wait.until(ExpectedConditions.presenceOfElementLocated(
@@ -93,7 +116,7 @@ public class NaukriUpdate {
 
         upload.sendKeys(Config.RESUME_PATH);
 
-        System.out.println("Resume Uploaded");
+        System.out.println("✅ Resume Uploaded Successfully");
     }
 
     public static void logout() {
@@ -101,10 +124,14 @@ public class NaukriUpdate {
         try {
 
             driver.findElement(
-                    By.xpath("//a[@data-type='logoutLink']"))
+                    By.xpath("//img[@alt='naukri user profile img']"))
+                    .click();
+            
+            driver.findElement(
+                    By.xpath("//a[normalize-space()='Logout']"))
                     .click();
 
-            System.out.println("Logout Successful");
+            System.out.println("✅ Logout Successful");
 
         } catch (Exception e) {
             System.out.println("Logout Failed");
